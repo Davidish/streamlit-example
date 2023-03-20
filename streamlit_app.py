@@ -1,38 +1,37 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+import datetime
 import streamlit as st
+import pandas as pd
+from os.path import exists
+import pathlib
 
-"""
-# Welcome to Streamlit!
+file_exists = exists(pathlib.Path('data.parquet'))
+st.title("Harry's Timesheet App")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+t1 = st.time_input('Start time:', datetime.time(8, 00))
+t2 = st.time_input('End time:', datetime.time(8, 00))
+user = 'system'
+insert_datetime = datetime.datetime.now()
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+if st.button('Submit'):
+    if file_exists:
+        df = pd.read_parquet('data.parquet')
+        details = {
+            'start_time' : [t1],
+            'end_time' : [t2],
+            'user' : [user],
+            'insert_datetime':[insert_datetime]
+        }
+        df_insert = pd.DataFrame(details)
+        df = pd.concat([df, df_insert], ignore_index=True, sort=False)        
+    else:
+        details = {
+            'start_time' : [t1],
+            'end_time' : [t2],
+            'user' : [user],
+            'insert_datetime':[insert_datetime]
+        }
+        df = pd.DataFrame(details)
+        
+    df.to_parquet('data.parquet')
+    st.write('Entry submitted...')
+    st.dataframe(df)
