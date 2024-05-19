@@ -36,12 +36,12 @@ recipes_dict = {recipe["recipe_id"]: recipe for recipe in recipes}
 
 if len(matching_recipe_ids) > 0:
     final_ingredients = {}
+    st.write('Ingredients:')
     for recipe_id in matching_recipe_ids:
         recipe_name = recipes_dict.get(recipe_id)['name']
         # matching_recipe = [recipe for recipe in recipes if recipe["recipe_id"] == recipe_id_to_find]
-        st.write(recipe_name)
+        # st.write(recipe_name)        
         
-        st.write('Ingredients:')
         reponse_ingredients = supabase.table('recipeingredient').select("*").eq('recipe_id', recipe_id).execute()
 
         ingredient_ids = reponse_ingredients.data
