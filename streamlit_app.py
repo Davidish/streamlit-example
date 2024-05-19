@@ -11,14 +11,14 @@ url = st.secrets["SUPABASE_URL"]
 key = st.secrets["SUPABASE_KEY"]
 todoist_key = st.secrets["TODOIST"]
 
-st.write(todoist_key)
-
 #Link to todoapp
 api = TodoistAPI(todoist_key)
 
 try:
     st.write('test')
     projects = api.get_projects()
+    st.write(type(projects))
+    st.write('test')
     st.write(projects)
 except Exception as error:
     st.write(error)
