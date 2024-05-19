@@ -28,7 +28,7 @@ recipe_display = [recipe['name'] for recipe in recipes]
 
 options = st.multiselect(
     "Choose recipes for the week",
-    [recipe_display])
+    recipe_display)
 
 st.write("You selected:", options)
 
