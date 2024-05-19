@@ -1,3 +1,2 @@
-altair
-pandas
 streamlit
+supabase@2.4.5
