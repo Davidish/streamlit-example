@@ -4,8 +4,6 @@ from supabase import create_client, Client
 import pandas as pd
 from todoist_api_python.api import TodoistAPI
 
-api = TodoistAPI("0123456789abcdef0123456789")
-
 st.title("Mielie Meal Planner")
 st.write('Welcome!')
 
@@ -17,8 +15,12 @@ key = os.environ["SUPABASE_KEY"]
 todoist_key = os.environ["TODOIST"]
 api = TodoistAPI("todoist_key")
 
-projects = api.get_projects()
-st.write(projects)
+try:
+    st.write('test')
+    projects = api.get_projects()
+    st.write(projects)
+except Exception as error:
+    st.write(error)
 
 #set Supabase client
 supabase: Client = create_client(url, key)
