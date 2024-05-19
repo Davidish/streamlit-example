@@ -13,7 +13,7 @@ key = os.environ["SUPABASE_KEY"]
 
 #Link to todoapp
 todoist_key = os.environ["TODOIST"]
-api = TodoistAPI("todoist_key")
+api = TodoistAPI(todoist_key)
 
 try:
     st.write('test')
