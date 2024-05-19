@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from supabase import create_client, Client
+import pandas as pd
 
 st.title("Mielie Meal Planner")
 st.write('Welcome!')
@@ -12,9 +13,14 @@ supabase: Client = create_client(url, key)
 response = supabase.table('recipe').select("*").execute()
 recipes = response.data
 
-st.write(recipes)
+# st.write(recipes)
 
 recipe_display = [recipe['name'] for recipe in recipes]
+
+# option = st.selectbox(
+#     "Choose a recipe to add to shopping list?",
+#     recipe_display)
+
 options = st.multiselect(
     "Choose your recipes:",
     recipe_display)
@@ -25,6 +31,9 @@ matching_recipe_ids = [recipe['recipe_id'] for recipe in recipes if recipe['name
 # st.write(matching_recipe_ids)
 
 recipes_dict = {recipe["recipe_id"]: recipe for recipe in recipes}
+
+# servings = st.slider("Number of servings?", 0, 130, 25)
+
 
 final_ingredients = {}
 if len(matching_recipe_ids) > 0:
@@ -63,3 +72,5 @@ if len(matching_recipe_ids) > 0:
             # st.write(f'{ingredient_category}: {ingredient_name} {ingredient_type} = {quantity} {ingredient_unit}')
 
 st.write(final_ingredients)
+df = pd.DataFrame.from_dict(final_ingredients, orient='index')
+st.write(df)
