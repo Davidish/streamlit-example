@@ -73,4 +73,5 @@ if len(matching_recipe_ids) > 0:
     # st.write(final_ingredients)
     df = pd.DataFrame.from_dict(final_ingredients, orient='index')
     df.columns = ['Name','Type','Category','Unit','Quantity']
+    df.reset_index(inplace=True)
     st.write(df[['Name','Type','Category','Unit','Quantity']])
