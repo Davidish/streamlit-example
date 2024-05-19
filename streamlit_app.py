@@ -2,12 +2,25 @@ import streamlit as st
 import os
 from supabase import create_client, Client
 import pandas as pd
+from todoist_api_python.api import TodoistAPI
+
+api = TodoistAPI("0123456789abcdef0123456789")
 
 st.title("Mielie Meal Planner")
 st.write('Welcome!')
 
+#get secretes
 url = os.environ["SUPABASE_URL"]
 key = os.environ["SUPABASE_KEY"]
+
+#Link to todoapp
+todoist_key = os.environ["TODOIST"]
+api = TodoistAPI("todoist_key")
+
+projects = api.get_projects()
+st.write(projects)
+
+#set Supabase client
 supabase: Client = create_client(url, key)
 
 response = supabase.table('recipe').select("*").execute()
@@ -76,3 +89,18 @@ if len(matching_recipe_ids) > 0:
     df['ItemDisplay'] = df['Type'] + ' ' + df['Name']
     df.set_index('ItemDisplay', inplace=True)
     st.write(df[['Category','Unit','Quantity']])
+
+
+
+
+if st.button("Add to list", type="primary"):
+    st.write("Items added")
+
+    #for each item in the list add
+
+
+# try:
+#     task = api.add_task(content="Buy Milk", project_id="2203306141")
+#     print(task)
+# except Exception as error:
+#     print(error)
