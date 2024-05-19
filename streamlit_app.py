@@ -7,12 +7,19 @@ from todoist_api_python.api import TodoistAPI
 st.title("Mielie Meal Planner")
 st.write('Welcome!')
 
-#get secretes
+#get secrets
 url = os.environ["SUPABASE_URL"]
 key = os.environ["SUPABASE_KEY"]
+todoist_key = os.environ["TODOIST"]
+
+st.write(
+    "Has environment variables been set:",
+    os.environ["SUPABASE_URL"] == st.secrets["SUPABASE_URL"],
+    os.environ["SUPABASE_KEY"] == st.secrets["SUPABASE_KEY"],
+    os.environ["TODOIST"] == st.secrets["TODOIST"],
+)
 
 #Link to todoapp
-todoist_key = os.environ["TODOIST"]
 api = TodoistAPI(todoist_key)
 
 try:
