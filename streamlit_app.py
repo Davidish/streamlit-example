@@ -26,7 +26,7 @@ options = st.multiselect(
 
 st.write("You selected:", options)
 
-matching_recipe_ids = [recipe['id'] for recipe in recipes if recipe['name'] in options]
+matching_recipe_ids = [recipe['recipe_id'] for recipe in recipes if recipe['name'] in options]
 
 st.write(matching_recipe_ids)
 
