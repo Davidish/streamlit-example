@@ -24,9 +24,12 @@ st.write("You selected:", options)
 matching_recipe_ids = [recipe['recipe_id'] for recipe in recipes if recipe['name'] in options]
 st.write(matching_recipe_ids)
 
+recipes_dict = {recipe["recipe_id"]: recipe for recipe in recipes}
+
 if len(matching_recipe_ids) > 0:
     for recipe_id in matching_recipe_ids:
-        # recipe_name = recipes.get(recipe_id)
+        recipe_name = recipes_dict.get(recipe_id)['name']
+        # matching_recipe = [recipe for recipe in recipes if recipe["recipe_id"] == recipe_id_to_find]
         st.write(recipe_name)
         
         st.write('Ingredients:')
