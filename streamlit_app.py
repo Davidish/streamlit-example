@@ -12,6 +12,8 @@ supabase: Client = create_client(url, key)
 response = supabase.table('recipe').select("*").execute()
 recipes = response.data
 
+st.write(recipes)
+
 recipe_display = [recipe['name'] for recipe in recipes]
 options = st.multiselect(
     "Choose your recipes:",
@@ -24,7 +26,7 @@ st.write(matching_recipe_ids)
 
 if len(matching_recipe_ids) > 0:
     for recipe_id in matching_recipe_ids:
-        recipe_name = recipes.get(recipe_id)
+        # recipe_name = recipes.get(recipe_id)
         st.write(recipe_name)
         
         st.write('Ingredients:')
