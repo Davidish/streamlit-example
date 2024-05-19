@@ -19,13 +19,14 @@ options = st.multiselect(
     "Choose your recipes:",
     recipe_display)
 
-st.write("You selected:", options)
+# st.write("You selected:", options)
 
 matching_recipe_ids = [recipe['recipe_id'] for recipe in recipes if recipe['name'] in options]
-st.write(matching_recipe_ids)
+# st.write(matching_recipe_ids)
 
 recipes_dict = {recipe["recipe_id"]: recipe for recipe in recipes}
 
+final_ingredients = {}
 if len(matching_recipe_ids) > 0:
     for recipe_id in matching_recipe_ids:
         recipe_name = recipes_dict.get(recipe_id)['name']
@@ -38,8 +39,7 @@ if len(matching_recipe_ids) > 0:
         ingredient_ids = reponse_ingredients.data
         for ingredient_id in ingredient_ids:
             id = ingredient_id['ingredient_id']
-            quantity = ingredient_id['quantity']
-
+            
             reponse_final = supabase.table('ingredient').select("*").eq('ingredient_id',id).execute()
             final = reponse_final.data[0]
 
@@ -47,6 +47,13 @@ if len(matching_recipe_ids) > 0:
             ingredient_type = final['type']
             ingredient_category = final['category']
             ingredient_unit = final['unit']
+            ingredient_quantity = ingredient_id['quantity']
 
+            ingredient_key = (ingredient_name, ingredient_type)
+            final_ingredients[ingredient_key]['category'] = ingredient_category
+            final_ingredients[ingredient_key]['unit'] = ingredient_unit
+            final_ingredients[ingredient_key]['quantity'] = ingredient_quantity
             
-            st.write(f'{ingredient_category}: {ingredient_name} {ingredient_type} = {quantity} {ingredient_unit}')
+            # st.write(f'{ingredient_category}: {ingredient_name} {ingredient_type} = {quantity} {ingredient_unit}')
+
+st.write(final_ingredients)
