@@ -22,7 +22,8 @@ st.write("You selected:", options)
 matching_recipe_ids = [recipe['recipe_id'] for recipe in recipes if recipe['name'] in options]
 st.write(matching_recipe_ids)
 
-for recipe_id in matching_recipe_ids:
+if len(matching_recipe_ids) > 0:
+    for recipe_id in matching_recipe_ids:
         recipe_name = recipes.get(recipe_id)
         st.write(recipe_name)
         
