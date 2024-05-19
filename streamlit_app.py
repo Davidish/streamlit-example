@@ -49,9 +49,11 @@ if len(matching_recipe_ids) > 0:
             ingredient_unit = final['unit']
             ingredient_quantity = ingredient_id['quantity']
 
-            ingredient_key = (ingredient_name, ingredient_type)
-            if key not in final_ingredients:
+            ingredient_key = f"{ingredient_name}_{ingredient_type}"
+            if ingredient_key not in final_ingredients:
                 final_ingredients[ingredient_key] = {}
+                final_ingredients[ingredient_key]['name'] = ingredient_name
+                final_ingredients[ingredient_key]['type'] = ingredient_type
                 final_ingredients[ingredient_key]['category'] = ingredient_category
                 final_ingredients[ingredient_key]['unit'] = ingredient_unit
                 final_ingredients[ingredient_key]['quantity'] = ingredient_quantity
