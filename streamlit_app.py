@@ -34,9 +34,8 @@ recipes_dict = {recipe["recipe_id"]: recipe for recipe in recipes}
 
 # servings = st.slider("Number of servings?", 0, 130, 25)
 
-
-final_ingredients = {}
 if len(matching_recipe_ids) > 0:
+    final_ingredients = {}
     for recipe_id in matching_recipe_ids:
         recipe_name = recipes_dict.get(recipe_id)['name']
         # matching_recipe = [recipe for recipe in recipes if recipe["recipe_id"] == recipe_id_to_find]
@@ -71,7 +70,7 @@ if len(matching_recipe_ids) > 0:
             
             # st.write(f'{ingredient_category}: {ingredient_name} {ingredient_type} = {quantity} {ingredient_unit}')
 
-# st.write(final_ingredients)
-df = pd.DataFrame.from_dict(final_ingredients, orient='index')
-df.columns = ['Name','Type','Category','Unit','Quantity']
-st.write(df[['Name','Type','Category','Unit','Quantity']])
+    # st.write(final_ingredients)
+    df = pd.DataFrame.from_dict(final_ingredients, orient='index')
+    df.columns = ['Name','Type','Category','Unit','Quantity']
+    st.write(df[['Name','Type','Category','Unit','Quantity']])
