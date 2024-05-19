@@ -18,7 +18,7 @@ recipes = response.data
 
 import streamlit as st
 
-recipe_display = [recipes['name'] for reciple in recipe.values()]
+recipe_display = [recipe['name'] for recipe in recipes.values()]
 
 # for recipe in recipes:
 #         # print(recipe)
