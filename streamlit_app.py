@@ -1,11 +1,17 @@
 import streamlit as st
+import os
 
 st.title("Mielie Meal Planner")
 
 st.write('Test')
 
+
+os.environ["SUPABASE_URL"] == st.secrets["SUPABASE_URL"]
+os.environ["SUPABASE_KEY"] == st.secrets["SUPABASE_KEY"]
 url = os.environ["SUPABASE_URL"]
 key = os.environ["SUPABASE_KEY"]
+
+st.write(url)
 
 supabase: Client = create_client(url, key)
 
