@@ -56,7 +56,7 @@ if len(matching_recipe_ids) > 0:
                 final_ingredients[ingredient_key]['unit'] = ingredient_unit
                 final_ingredients[ingredient_key]['quantity'] = ingredient_quantity
             else:
-                final_ingredients[ingredient_key['quantity'] += ingredient_quantity
+                final_ingredients[ingredient_key['quantity'] = final_ingredients[ingredient_key['quantity'] + ingredient_quantity
             
             # st.write(f'{ingredient_category}: {ingredient_name} {ingredient_type} = {quantity} {ingredient_unit}')
 
