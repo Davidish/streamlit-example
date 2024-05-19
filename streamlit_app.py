@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 from supabase import create_client, Client
 import pandas as pd
 from todoist_api_python.api import TodoistAPI
@@ -8,17 +7,11 @@ st.title("Mielie Meal Planner")
 st.write('Welcome!')
 
 #get secrets
-url = os.environ["SUPABASE_URL"]
-key = os.environ["SUPABASE_KEY"]
-# todoist_key = os.environ["TODOIST"]
-todoist_key = "b05afbbcea47e6eaf92d662e04b5200a713e4f72"
+url = st.secrets["SUPABASE_URL"]
+key = st.secrets["SUPABASE_KEY"]
+todoist_key = st.secrets["TODOIST"]
 
-st.write(
-    "Has environment variables been set:",
-    os.environ["SUPABASE_URL"] == st.secrets["SUPABASE_URL"],
-    os.environ["SUPABASE_KEY"] == st.secrets["SUPABASE_KEY"],
-    # os.environ["TODOIST"] == st.secrets["TODOIST"],
-)
+st.write(todoist_key)
 
 #Link to todoapp
 api = TodoistAPI(todoist_key)
