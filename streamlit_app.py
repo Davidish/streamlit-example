@@ -14,14 +14,14 @@ todoist_key = st.secrets["TODOIST"]
 #Link to todoapp
 api = TodoistAPI(todoist_key)
 
-try:
-    st.write('test')
-    projects = api.get_projects()
-    st.write(type(projects))
-    st.write('test')
-    st.write(projects)
-except Exception as error:
-    st.write(error)
+# try:
+#     st.write('test')
+#     projects = api.get_projects()
+#     st.write(type(projects))
+#     st.write('test')
+#     st.write(projects)
+# except Exception as error:
+#     st.write(error)
 
 #set Supabase client
 supabase: Client = create_client(url, key)
